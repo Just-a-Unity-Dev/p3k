@@ -1,0 +1,5 @@
+.env
+__pyenv__
+*.db
+venv
+config.yml
