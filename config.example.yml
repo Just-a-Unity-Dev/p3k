@@ -12,3 +12,8 @@ db: # PostgreSQl support only. Take a look at your server's config.toml and make
 # Change if you want to use alternate authentication server.
 auth:
   url: "https://auth.spacestation14.com" # The root URL where /api/query/name?name will be put
+
+role:
+  whitelist:
+    - 12345 # The role ID of roles that may whitelist other users.
+    - 67890
