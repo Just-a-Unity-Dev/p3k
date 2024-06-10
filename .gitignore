@@ -1,5 +1,6 @@
 .env
 __pyenv__
+__pycache__
 *.db
 venv
 config.yml
