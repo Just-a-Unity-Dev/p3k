@@ -35,7 +35,7 @@ def check_roles(roles: list, acceptable: list):
 
 @client.command(name="whitelist", aliases=['wl'])
 async def whitelist_command(ctx: commands.Context, username: str):
-    if not check_roles(map(lambda x: x.id, ctx.author.roles, bot_config['role']['whitelist']))
+    if not check_roles(map(lambda x: x.id, ctx.author.roles, bot_config['role']['whitelist'])):
         return await ctx.reply("you're not authorized to run this command")
 
     try:
