@@ -1,2 +1,14 @@
 bot:
   token: DISCORD_TOKEN
+
+db: # PostgreSQl support only. Take a look at your server's config.toml and make the settings relatively the same
+  host: "localhost"
+  port: 5432
+  database: ""
+  username: ""
+  password: ""
+
+# Defaults to the default Wizard's Den authentication server.
+# Change if you want to use alternate authentication server.
+auth:
+  url: "https://auth.spacestation14.com" # The root URL where /api/query/name?name will be put
