@@ -15,7 +15,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS r9k_posts (text BLOB NOT NULL UNIQUE);
 conn.commit()
 
 intents = discord.Intents.all()
-client = commands.bot(intents=intents)
+client = commands.Bot(command_prefix="%", intents=intents)
 
 @client.event
 async def on_ready():
