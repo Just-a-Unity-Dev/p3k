@@ -1,14 +1,12 @@
-import logging, datetime, yaml, sqlite3, requests
-from discord.ext import commands
-import discord
+import logging
+import config, discord
+# These three main libraries MUST be set up first before anything.
 discord.utils.setup_logging()
+config.setup_config()
 
-config = {}
-with open("config.yml") as stream:
-    try:
-        config = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        raise Exception(exc)
+import datetime, sqlite3, auth
+from config import bot_config
+from discord.ext import commands
 
 conn = sqlite3.connect("main.db")
 cur = conn.cursor()
@@ -23,8 +21,13 @@ client = commands.Bot(command_prefix="%", intents=intents)
 async def on_ready():
     logging.info(f"Bot started at {datetime.datetime.now()}")
 
-@client.command()
+@client.command(name="hello")
 async def hello_command(ctx: commands.Context):
     await ctx.reply("hello, world!")
 
-client.run(config['bot']['token'])
+@client.command(name="whitelist", aliases=['wl'])
+async def whitelist_command(ctx: commands.Context, username: str):
+    x = auth.User.from_username(username)
+    await ctx.send(f"The user ID of {username} is `{x.user_id}`")
+
+client.run(bot_config['bot']['token'])
