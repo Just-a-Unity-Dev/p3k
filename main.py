@@ -4,15 +4,9 @@ import config, discord
 discord.utils.setup_logging()
 config.setup_config()
 
-import datetime, sqlite3, auth
+import datetime, auth
 from config import bot_config
 from discord.ext import commands
-
-conn = sqlite3.connect("main.db")
-cur = conn.cursor()
-# Create DB tables
-cur.execute("""CREATE TABLE IF NOT EXISTS test_db (text BLOB NOT NULL UNIQUE);""")
-conn.commit()
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix="%", intents=intents)
