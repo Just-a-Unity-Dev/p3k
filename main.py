@@ -8,7 +8,7 @@ import datetime, auth, psycopg2
 from config import bot_config
 from discord.ext import commands
 connection = psycopg2.connect(
-    username=bot_config['db']['username'],
+    user=bot_config['db']['username'],
     password=bot_config['db']['password'],
     host=bot_config['db']['host'],
     port=bot_config['db']['port'],
