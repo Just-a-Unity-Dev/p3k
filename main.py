@@ -31,9 +31,11 @@ async def hello_command(ctx: commands.Context):
 async def whitelist_command(ctx: commands.Context, username: str):
     try:
         x = auth.User.from_username(username)
-        await ctx.send(f"The user ID of {username} is `{x.user_id}`")
         query = """INSERT INTO whitelist (USER_ID) VALUES (%s)"""
         cursor.execute(query, (x.user_id,))
+        connection.commit()
+        logging.info(f"Added {x.user_id} ({x.username}) to whitelist.")
+        await ctx.send(f"Added `{username}` to whitelist.")
     except auth.NotRealUserException:
         await ctx.send(f"`{username}` is not a real valid username.")
 
