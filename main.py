@@ -1,5 +1,7 @@
-import logging, datetime, yaml, sqlite3, discord
+import logging, datetime, yaml, sqlite3, requests
 from discord.ext import commands
+import discord
+discord.utils.setup_logging()
 
 config = {}
 with open("config.yml") as stream:
@@ -11,7 +13,7 @@ with open("config.yml") as stream:
 conn = sqlite3.connect("main.db")
 cur = conn.cursor()
 # Create DB tables
-cur.execute("""CREATE TABLE IF NOT EXISTS r9k_posts (text BLOB NOT NULL UNIQUE);""")
+cur.execute("""CREATE TABLE IF NOT EXISTS test_db (text BLOB NOT NULL UNIQUE);""")
 conn.commit()
 
 intents = discord.Intents.all()
