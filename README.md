@@ -15,5 +15,6 @@ p3k has only ever been tested on 3.11 so have caution when testing with older ve
 
 ## features
 
-- ss14 account linking (todo)
-- quick whitelist (todo)
+- quick whitelist (done, `%wl` command)
+- date tracking (todo, for use in MRP/HRP servers)
+- ss14 account linking (todo, for use in faster linking/get ckey from user commands)
