@@ -1,12 +1,14 @@
-import yaml, logging
+import yaml
+import logging
 
 bot_config = {}
 config_setup = False
 
+
 def setup_config():
     global bot_config, config_setup
     if config_setup:
-        raise Exception("")
+        raise Exception("Configuration already initialized")
     with open("config.yml") as stream:
         try:
             bot_config = yaml.safe_load(stream)
