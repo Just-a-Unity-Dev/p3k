@@ -29,15 +29,14 @@ class User():
 
     @classmethod
     def from_username(self, username: str = "BobbyTables"):
-        inst = self()
         x = requests.get(f"{auth_url}/api/query/name?name={username}")
         data: dict = x.json()
         if ("status" in data):
             raise NotRealUserException("Did not supply a real username.")
 
-        inst.username = data['userName']
-        inst.user_id = data['userId']
-        inst.patron_tier = data['patronTier']
-        inst.created_time = datetime.fromisoformat(data['createdTime'])
-
-        return inst
+        return User(
+            data['userName'],
+            data['userId'],
+            data['patronTier'], 
+            datetime.fromisoformat(data['createdTime']
+            ))
