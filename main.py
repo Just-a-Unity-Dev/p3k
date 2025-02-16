@@ -1,12 +1,17 @@
 import logging
-import config, discord
+import config
+import discord
+
 # These three main libraries MUST be set up first before anything.
 discord.utils.setup_logging()
 config.setup_config()
 
-import datetime, auth, psycopg2
+import datetime
+import auth
+import psycopg2
 from config import bot_config
 from discord.ext import commands
+
 connection = psycopg2.connect(
     user=bot_config['db']['username'],
     password=bot_config['db']['password'],
@@ -19,13 +24,16 @@ cursor = connection.cursor()
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix="%", intents=intents)
 
+
 @client.event
 async def on_ready():
     logging.info(f"Bot started at {datetime.datetime.now()}")
 
+
 @client.command(name="hello")
 async def hello_command(ctx: commands.Context):
     await ctx.reply("hello, world!")
+
 
 def check_roles(roles: list, acceptable: list):
     for x in roles:
@@ -33,9 +41,12 @@ def check_roles(roles: list, acceptable: list):
             return True
     return False
 
+
 @client.command(name="whitelist", aliases=['wl'])
 async def whitelist_command(ctx: commands.Context, username: str):
-    if not check_roles(map(lambda x: x.id, ctx.author.roles), bot_config['role']['whitelist']):
+    if not check_roles(
+        map(lambda x: x.id, ctx.author.roles), bot_config['role']['whitelist']
+    ):
         return await ctx.reply("you're not authorized to run this command")
 
     try:
@@ -47,6 +58,8 @@ async def whitelist_command(ctx: commands.Context, username: str):
         await ctx.send(f"Added `{username}` to whitelist.")
     except auth.NotRealUserException:
         await ctx.send(f"`{username}` is not a real valid username.")
+    except psycopg2.errors.UniqueViolation:
+        await ctx.send(f"`{username}` is already whitelisted.")
 
 
 client.run(bot_config['bot']['token'])
